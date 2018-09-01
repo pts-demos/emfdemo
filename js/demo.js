@@ -87,7 +87,7 @@ var animate = function () {
 		textMeshes[t].position.x -= text_move_speed_x;
 
 		// adds a bit of up-down boppiness, slightly unique to each letter
-		var sin_add = Math.sin(pos.x / 8) * 1.2 * Math.sin(t + (loops * 0.001));
+		var sin_add = Math.sin(pos.x / 16) * 1.4 * Math.sin(t + (loops * 0.1));
 
 		textMeshes[t].position.y -= text_move_speed_y + sin_add;
 
@@ -108,12 +108,12 @@ var texts = text_all.split("");
 var textGeoms = [];
 var textMeshes = [];
 
-var text_move_speed_x = 1;
-var text_move_speed_y = 0.7
+var text_move_speed_x = 3;
+var text_move_speed_y = 2.7;
 var curveSegments = 3;
-var textSize = 10;
+var textSize = 18;
 var bevelThickness = 0.1;
-var bevelSize = 0.3;
+var bevelSize = 1;
 var bevelSegments = 4;
 var bevelEnabled = true;
 var font = undefined;
@@ -129,7 +129,7 @@ scene.add( textgroup );
 var text_spawn_x = 160;
 var text_spawn_y = 0;
 var text_spawn_z = -180;
-var text_spawn_increment = 10;
+var text_spawn_increment = 20;
 
 function genText(on_done) {
 	var loader = new THREE.FontLoader();
@@ -143,7 +143,8 @@ function genText(on_done) {
 				curveSegments: curveSegments,
 				bevelThickness: bevelThickness,
 				bevelSize: bevelSize,
-				bevelEnabled: bevelEnabled
+				bevelEnabled: bevelEnabled,
+				amount: 3
 			});
 
 			textGeoms[t].computeBoundingBox();
