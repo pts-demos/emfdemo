@@ -1,4 +1,9 @@
 var loops = 0;
+var audio = new Audio('./audio/nebula.ogg');
+audio.addEventListener('canplaythrough', function() { 
+   audio.play();
+}, false);
+
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
