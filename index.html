@@ -7,6 +7,19 @@
 		</style>
 	</head>
 	<body>
+        <div id="startdemo">CLICK HERE</div>
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script>
+            var started = false;
+            $("#startdemo").click(function() {
+                if (started)
+                    return;
+                started = true;
+
+                $("#startdemo").hide();
+                start_demo();
+            });
+        </script>
 		<script src="js/emf.js"></script>		
 		<script src="js/three.min.js"></script>
 		<script src="js/demo.js"></script>

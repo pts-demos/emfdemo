@@ -1,9 +1,5 @@
 var loops = 0;
-var audio = new Audio('./audio/nebula.ogg');
-audio.addEventListener('canplaythrough', function() { 
-   audio.play();
-}, false);
-
+var audio = undefined;
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
@@ -112,7 +108,6 @@ var animate = function () {
 
     renderer.render( scene, camera );
     loops++;
-    console.log(loops);
 };
 
 var text_all = "pts presents: the EMF scroller    Code: Sonicus/Gekko  Gfx: Gekko  Music: Gekko    Greetz to:  Byterapers  Jumalauta  Damones  Turku Hacklab    pts wishes you all a nice EMF. Try not to drown in the pond.        Hack the planet!";
@@ -196,4 +191,11 @@ function loadData(on_done) {
 	});
 }
 
-loadData(animate);
+function start_demo() {
+	audio = new Audio('./audio/nebula.ogg');
+	audio.addEventListener('canplaythrough', function() { 
+		audio.play();
+		loadData(animate);
+	}, false);
+}
+
