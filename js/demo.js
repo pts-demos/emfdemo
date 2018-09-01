@@ -66,14 +66,21 @@ var scaleThings = function(scale) {
     });
 };
 
+var exploded = false;
 
 var animate = function () {
     requestAnimationFrame( animate );
 
-    if(ringVertices[0].position.x <= originalScale){
-        scaleThings(1.5);
-    } else {
-        scaleThings(0.97);
+    if(loops < 600){
+        if(ringVertices[0].position.x <= originalScale){
+            scaleThings(1.5);
+        } else {
+            scaleThings(0.97);
+        }
+    } else if(exploded){
+        scaleThings(1.1);
+    }  else {
+        exploded = true;
     }
     pivot.rotation.y -= 0.1;
     pivotRing.rotation.y += 0.05;
@@ -99,7 +106,7 @@ var animate = function () {
 	}
 
     renderer.render( scene, camera );
-	loops++;
+    loops++;
 };
 
 var text_all = "Oispa kaljaa, ihan vitusti, saatana kun ois niin vitusti kaljaa";
