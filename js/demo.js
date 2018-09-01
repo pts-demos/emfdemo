@@ -43,7 +43,7 @@ var animate = function () {
     requestAnimationFrame( animate );
 
     pivot.rotation.y -= 0.1;
-    pivotRing.rotation.z += 0.7;
+    //pivotRing.rotation.z += 0.7;
     pivotRing.rotation.y += 0.05;
 
     renderer.render( scene, camera );
