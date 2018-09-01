@@ -1,5 +1,5 @@
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+var camera = new THREE.PerspectiveCamera( 90, window.innerWidth/window.innerHeight, 0.1, 1000 );
 //camera.rotateZ(90);
 
 var renderer = new THREE.WebGLRenderer();
@@ -28,21 +28,22 @@ emflogo.objects[1].vertices.forEach(function(vertex){
     var geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1 );
     var material = basicMaterial
     var cube = new THREE.Mesh( geometry, material );
-    cube.position.x = vertex[0]*3;
-    cube.position.y = vertex[1]*3;
-    cube.position.z = vertex[2]*3;
+    cube.position.x = vertex[0]*4;
+    cube.position.y = vertex[1]*4;
+    cube.position.z = vertex[2]*4;
     pivotRing.add(cube);
 });
 scene.add(pivotRing);
 
 camera.position.x = 2;
 camera.position.y = 1;
-camera.position.z = 30;
+camera.position.z = 25;
 
 var animate = function () {
     requestAnimationFrame( animate );
 
     pivot.rotation.y -= 0.1;
+    pivotRing.rotation.z += 0.7;
     pivotRing.rotation.y += 0.05;
 
     renderer.render( scene, camera );
