@@ -20,7 +20,7 @@ emflogo.objects[0].vertices.forEach(function(vertex){
     pivot.add(cube);
 });
 pivot.rotateZ(Math.PI/4);
-pivot.position.x = -6;
+//pivot.position.x = -6;
 scene.add( pivot );
 
 var pivotRing = new THREE.Object3D();
@@ -37,13 +37,13 @@ scene.add(pivotRing);
 
 camera.position.x = 2;
 camera.position.y = 1;
-camera.position.z = 20;
+camera.position.z = 30;
 
 var animate = function () {
     requestAnimationFrame( animate );
 
-    //pivot.rotation.x += 0.1;
-    pivotRing.rotation.y += 0.1;
+    pivot.rotation.y -= 0.1;
+    pivotRing.rotation.y += 0.05;
 
     renderer.render( scene, camera );
 };
