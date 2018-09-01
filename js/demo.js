@@ -76,7 +76,7 @@ var exploded = false;
 var animate = function () {
     requestAnimationFrame( animate );
 
-    if(loops < 600){
+    if(loops < 1720){
         if(ringVertices[0].position.x <= originalScale){
             scaleThings(1.5);
         } else {
@@ -112,9 +112,10 @@ var animate = function () {
 
     renderer.render( scene, camera );
     loops++;
+    console.log(loops);
 };
 
-var text_all = "Oispa kaljaa, ihan vitusti, saatana kun ois niin vitusti kaljaa";
+var text_all = "pts presents: the EMF scroller    Code: Sonicus/Gekko  Gfx: Gekko  Music: Gekko    Greetz to:  Byterapers  Jumalauta  Damones  Turku Hacklab    pts wishes you all a nice EMF. Try not to drown in the pond.        Hack the planet!";
 var texts = text_all.split("");
 
 var textGeoms = [];
