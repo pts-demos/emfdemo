@@ -131,9 +131,12 @@ var text_spawn_y = 0;
 var text_spawn_z = -180;
 var text_spawn_increment = 20;
 
-function genText(on_done) {
-	var loader = new THREE.FontLoader();
+var bg_plane_texture = undefined;
+var bg_plane_mat = undefined;
+var bg_plane_geom = undefined;
+var bg_plane_mesh = undefined;
 
+function loadData(on_done) {
 	var createText = function() {
 
 		for (var t = 0; t < texts.length; t++) {
@@ -164,10 +167,20 @@ function genText(on_done) {
 		on_done();
 	};
 
-	loader.load(font_fname, function ( response ) {
+	var fontloader = new THREE.FontLoader();
+
+	fontloader.load(font_fname, function ( response ) {
 		font = response;
+
+		bg_plane_texture = new THREE.TextureLoader().load('img/nebula.png');
+		bg_plane_mat = new THREE.MeshBasicMaterial( { map: bg_plane_texture } );
+		bg_plane_geom = new THREE.PlaneBufferGeometry(1000, 1000, 8, 8);
+		bg_plane_mesh = new THREE.Mesh(bg_plane_geom, bg_plane_mat);
+		bg_plane_mesh.position.z = -200;
+		scene.add(bg_plane_mesh);
+		
 		createText();
 	});
 }
 
-genText(animate);
+loadData(animate);
