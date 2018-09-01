@@ -51,7 +51,6 @@ var pointLight = new THREE.PointLight( 0xffffff, 1.5 );
 pointLight.position.set( 0, 100, 90 );
 scene.add( pointLight );
 
-
 var originalScale = ringVertices[0].position.x;
 
 var scaleThings = function(scale) {
@@ -79,29 +78,38 @@ var animate = function () {
     pivot.rotation.y -= 0.1;
     pivotRing.rotation.y += 0.05;
 
+	var rot_base = Math.PI / 3;
+
+	// Move individual letters down-left from corner-to-corner
+	// Rotate and offset them as a function of their x coordinate
 	for (var t = 0; t < textMeshes.length; t++) {
-		textMeshes[t].position.y -= text_move_speed;
-	}
-	for (var t = 0; t < textMeshesMirror.length; t++) {
-		textMeshesMirror[t].position.y += text_move_speed;
+		var pos = textMeshes[t].position;
+		textMeshes[t].position.x -= text_move_speed_x;
+
+		// adds a bit of up-down boppiness, slightly unique to each letter
+		var sin_add = Math.sin(pos.x / 8) * 1.2 * Math.sin(t + (loops * 0.001));
+
+		textMeshes[t].position.y -= text_move_speed_y + sin_add;
+
+		// Only rotate if the letters are on screen
+		if (pos.x < 200) {
+			var rot_angle = rot_base * (Math.sin(pos.x / 4 / (window.innerWidth)) * 0.25);
+			textMeshes[t].rotateZ(rot_angle);
+		}
 	}
 
     renderer.render( scene, camera );
 	loops++;
 };
 
-
-var texts = [
-	"oispa kaljaa",
-	"ihan vitusti",
-	"perkele kun ois kaljaa niin saatanasti"
-];
+var text_all = "Oispa kaljaa, ihan vitusti, saatana kun ois niin vitusti kaljaa";
+var texts = text_all.split("");
 
 var textGeoms = [];
 var textMeshes = [];
-var textMeshesMirror = [];
 
-var text_move_speed = 0.25;
+var text_move_speed_x = 1;
+var text_move_speed_y = 0.7
 var curveSegments = 3;
 var textSize = 10;
 var bevelThickness = 0.1;
@@ -116,13 +124,12 @@ var materials = [
 	new THREE.MeshPhongMaterial( { color: 0x00aaa0 } ) // side
 ];
 
-var mirror = false;
 var textgroup = new THREE.Group();
 scene.add( textgroup );
-var text_spawn_x = 10;
-var text_spawn_y = 10;
+var text_spawn_x = 160;
+var text_spawn_y = 0;
 var text_spawn_z = -180;
-var text_spawn_increment = 30;
+var text_spawn_increment = 10;
 
 function genText(on_done) {
 	var loader = new THREE.FontLoader();
@@ -144,22 +151,13 @@ function genText(on_done) {
 
 			textGeoms[t] = new THREE.BufferGeometry().fromGeometry( textGeoms[t] );
 			textMeshes[t] = new THREE.Mesh( textGeoms[t], materials );
-			textMeshes[t].position.x = text_spawn_x;
+			textMeshes[t].position.x = text_spawn_x + (t * text_spawn_increment);
 			textMeshes[t].position.y = text_spawn_y + (t * text_spawn_increment);
 			textMeshes[t].position.z = text_spawn_z;
 			textMeshes[t].rotation.x = 0;
-			textMeshes[t].rotation.y = Math.PI * 2;
+			textMeshes[t].rotation.y = 0;
+			textMeshes[t].rotation.y = 0;
 			textgroup.add( textMeshes[t] );
-
-			if ( mirror ) {
-				textMeshesMirror[t] = new THREE.Mesh( textGeoms[t], materials );
-				textMeshesMirror[t].position.x = text_spawn_x;
-				textMeshesMirror[t].position.y = -text_spawn_y - (t * text_spawn_increment);
-				textMeshesMirror[t].position.z = text_spawn_z;
-				textMeshesMirror[t].rotation.x = Math.PI;
-				textMeshesMirror[t].rotation.y = Math.PI * 2;
-				textgroup.add( textMeshesMirror[t] );
-			}
 		}
 
 		on_done();
