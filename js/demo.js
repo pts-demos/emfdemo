@@ -110,7 +110,7 @@ var animate = function () {
     loops++;
 };
 
-var text_all = "pts presents: the EMF scroller    Code: Sonicus/Gekko  Gfx: Gekko  Music: Gekko    Greetz to:  Byterapers  Jumalauta  Damones  Turku Hacklab    pts wishes you all a nice EMF. Try not to drown in the pond.        Hack the planet!";
+var text_all = "             pts presents: the EMF scroller    Code: Sonicus/Gekko  Gfx: Gekko  Music: Gekko    Greetz to:  Byterapers  Jumalauta  Damones  Turku Hacklab    pts wishes you all a nice EMF. Try not to drown in the pond.        Hack the planet!";
 var texts = text_all.split("");
 
 var textGeoms = [];
